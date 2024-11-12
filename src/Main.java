@@ -71,5 +71,16 @@ public class Main {
         caja1Thread.start();
         caja2Thread.start();
 
+        try {
+
+            caja1Thread.join();
+            caja2Thread.join();
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("\n Han terminado de procesar a todos los clientes en el tiempo: " + (System.currentTimeMillis() - initialTime) + " ms");
+
     }
 }
