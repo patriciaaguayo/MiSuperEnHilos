@@ -4,9 +4,8 @@ public class Cliente {
     private String nombre;
     private List<String> productos;
 
-    public Cliente(String nombre, List<String> productos) {
+    public Cliente(String nombre) {
         this.nombre = nombre;
-        this.productos = productos;
     }
 
     public String getNombre() {
@@ -15,5 +14,9 @@ public class Cliente {
 
     public List<String> getProductos() {
         return productos;
+    }
+
+    public void agregarProducto(String producto) {
+        productos.add(producto);
     }
 }

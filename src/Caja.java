@@ -1,35 +1,43 @@
+import java.util.List;
+
 public class Caja implements Runnable {
     private String nombre;
-    private Cliente cliente;
+    private List<Cliente> clientes;
     private long initialTime;
 
-    public Caja(String nombre) {
+    public Caja(String nombre, List<Cliente> clientes, long initialTime) {
         this.nombre = nombre;
-    }
-
-    public void procesarCliente(Cliente cliente, long initialTime) {
-        this.cliente = cliente;
+        this.clientes = clientes;
         this.initialTime = initialTime;
-        new Thread(this).start();  // Se inicia el hilo de procesamiento
     }
 
     @Override
     public void run() {
-        System.out.println("La " + nombre + " comienza a procesar al cliente " + cliente.getNombre() + " en el tiempo: " + (System.currentTimeMillis() - initialTime) + "ms");
-
-        for (String producto : cliente.getProductos()) {
-            procesarProducto(producto);
+        while (true) {
+            Cliente cliente;
+            // Bloque sincronizado para que solo un hilo acceda a la lista a la vez
+            synchronized (clientes) {
+                if (clientes.isEmpty()) {
+                    break;  // Salimos del bucle si ya no hay clientes
+                }
+                cliente = clientes.remove(0);  // Tomamos el siguiente cliente y lo eliminamos de la lista
+            }
+            procesarCliente(cliente);
         }
-
-        System.out.println("La " + nombre + " ha terminado de procesar al cliente " + cliente.getNombre() + " en el tiempo: " + (System.currentTimeMillis() - initialTime) + "ms");
     }
 
-    private void procesarProducto(String producto) {
-        try {
-            Thread.sleep(1000);  // Simulamos el tiempo de procesamiento de cada producto
-            System.out.println(nombre + " procesando producto: " + producto + " del cliente " + cliente.getNombre() + " - Tiempo: " + (System.currentTimeMillis() - initialTime) + "ms");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+    private void procesarCliente(Cliente cliente) {
+        System.out.println(nombre + " comienza a procesar al " + cliente.getNombre() + " en el tiempo: " + (System.currentTimeMillis() - initialTime) + " ms");
+
+        for (String producto : cliente.getProductos()) {
+            try {
+                Thread.sleep(1000);  // Simulamos el tiempo de procesamiento de cada producto
+                System.out.println(nombre + " procesando producto: " + producto + " del " + cliente.getNombre() + " - Tiempo: " + (System.currentTimeMillis() - initialTime) + " ms");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
+
+        System.out.println(nombre + " ha terminado de procesar al " + cliente.getNombre() + " en el tiempo: " + (System.currentTimeMillis() - initialTime) + " ms");
     }
 }

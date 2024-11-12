@@ -1,34 +1,73 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
+        List<Cliente> clientes = new ArrayList<>();
+
         // Creación de clientes con su lista de productos
 
-        Cliente cliente1 = new Cliente("Cliente 1", Arrays.asList("Producto A", "Producto B", "Producto C", "Producto D", "Producto E"));
-        Cliente cliente2 = new Cliente("Cliente 2", Arrays.asList("Producto F", "Producto G", "Producto H", "Producto I", "Producto J"));
-        Cliente cliente3 = new Cliente("Cliente 3", Arrays.asList("Producto K", "Producto L", "Producto M", "Producto N", "Producto O"));
-        Cliente cliente4 = new Cliente("Cliente 4", Arrays.asList("Producto P", "Producto Q", "Producto R", "Producto S", "Producto T"));
-        Cliente cliente5 = new Cliente("Cliente 5", Arrays.asList("Producto U", "Producto V", "Producto W", "Producto X", "Producto Y"));
+        Cliente cliente1 = new Cliente("Juana la Loca");
 
-        // Creación de las cajas
+        cliente1.agregarProducto("Cereales");
+        cliente1.agregarProducto("Huevos");
+        cliente1.agregarProducto("Leche");
+        cliente1.agregarProducto("Pan");
+        cliente1.agregarProducto("Tomate");
 
-        Caja caja1 = new Caja("Caja 1");
-        Caja caja2 = new Caja("Caja 2");
+        Cliente cliente2 = new Cliente("Anastasio");
 
-        // Tiempo inicial para el procesamiento
+        cliente2.agregarProducto("Pescado");
+        cliente2.agregarProducto("Pimientos");
+        cliente2.agregarProducto("Galletas");
+        cliente2.agregarProducto("Yogurt");
+        cliente2.agregarProducto("Agua");
+
+        Cliente cliente3 = new Cliente("Dora Exploradora");
+
+        cliente3.agregarProducto("Ajo");
+        cliente3.agregarProducto("Tarta");
+        cliente3.agregarProducto("Canela");
+        cliente3.agregarProducto("Helados");
+        cliente3.agregarProducto("Leche");
+
+        Cliente cliente4 = new Cliente("Paco Porros");
+
+        cliente4.agregarProducto("Galletas");
+        cliente4.agregarProducto("Porros");
+        cliente4.agregarProducto("María");
+        cliente4.agregarProducto("Coca");
+        cliente4.agregarProducto("LSD");
+
+        Cliente cliente5 = new Cliente("Vampira Anémica");
+
+        cliente5.agregarProducto("Sangre");
+        cliente5.agregarProducto("Cuerpo");
+        cliente5.agregarProducto("Dientes");
+        cliente5.agregarProducto("Piel");
+        cliente5.agregarProducto("Vampirismo");
+
+        clientes.add(cliente1);
+        clientes.add(cliente2);
+        clientes.add(cliente3);
+        clientes.add(cliente4);
+        clientes.add(cliente5);
+
+        // Tiempo inicial de la simulación
 
         long initialTime = System.currentTimeMillis();
 
-        // Asignación de clientes a cajas y procesamiento en hilos
+         // Crear y lanzar hilos de cajas
 
-        caja1.procesarCliente(cliente1, initialTime);
-        caja2.procesarCliente(cliente2, initialTime);
-        caja1.procesarCliente(cliente3, initialTime);
-        caja2.procesarCliente(cliente4, initialTime);
-        caja1.procesarCliente(cliente5, initialTime);
+        Thread caja1Thread = new Thread(new Caja("Caja 1", clientes, initialTime));
+        Thread caja2Thread = new Thread(new Caja("Caja 2", clientes, initialTime));
+
+        caja1Thread.start();
+        caja2Thread.start();
+
     }
 }
