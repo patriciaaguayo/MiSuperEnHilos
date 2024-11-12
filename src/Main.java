@@ -66,6 +66,8 @@ public class Main {
         Thread caja1Thread = new Thread(new Caja("Caja 1", clientes, initialTime));
         Thread caja2Thread = new Thread(new Caja("Caja 2", clientes, initialTime));
 
+        System.out.println("");
+
         caja1Thread.start();
         caja2Thread.start();
 

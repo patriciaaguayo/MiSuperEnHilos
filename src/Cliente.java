@@ -1,22 +1,24 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
     private String nombre;
-    private List<String> productos;
+    private List<String> ListaCompra;
 
     public Cliente(String nombre) {
         this.nombre = nombre;
+        ListaCompra = new ArrayList<>();
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public List<String> getProductos() {
-        return productos;
+    public List<String> getListaCompra() {
+        return ListaCompra;
     }
 
     public void agregarProducto(String producto) {
-        productos.add(producto);
+        ListaCompra.add(producto);
     }
 }
