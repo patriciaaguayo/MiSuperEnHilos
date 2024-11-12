@@ -80,7 +80,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        System.out.println("\n Han terminado de procesar a todos los clientes en el tiempo: " + (System.currentTimeMillis() - initialTime) + " ms");
+        System.out.printf("\n Han terminado de procesar a todos los clientes en el tiempo: %.2f segundos%n", (System.currentTimeMillis() - initialTime) / 1000.0);
 
     }
 }

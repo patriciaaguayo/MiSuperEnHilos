@@ -29,17 +29,24 @@ public class Caja implements Runnable {
     }
 
     private void procesarCliente(Cliente cliente) {
-        System.out.println(" " + caja + " comienza a pasar al cliente " + cliente.getNombre().toUpperCase() + " en el tiempo: " + (System.currentTimeMillis() - initialTime) + " ms");
+
+        System.out.printf(" %s comienza a pasar al cliente %s en el tiempo: %.2f segundos%n",
+                caja, cliente.getNombre().toUpperCase(), (System.currentTimeMillis() - initialTime) / 1000.0);
 
         for (String producto : cliente.getListaCompra()) {
+
             try {
+
                 Thread.sleep(1000);
-                System.out.println(" " + caja + " pasando producto: " + producto.toUpperCase() + " de " + cliente.getNombre().toUpperCase() + " - Tiempo: " + (System.currentTimeMillis() - initialTime) + " ms");
+                System.out.printf(" %s pasando producto: %s de %s - Tiempo: %.2f segundos%n",
+                        caja, producto.toUpperCase(), cliente.getNombre().toUpperCase(), (System.currentTimeMillis() - initialTime) / 1000.0);
+
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
 
-        System.out.println(" " + caja + " ha terminado de procesar a " + cliente.getNombre().toUpperCase() + " en el tiempo: " + (System.currentTimeMillis() - initialTime) + " ms");
+        System.out.printf(" %s ha terminado de procesar a %s en el tiempo: %.2f segundos%n",
+                caja, cliente.getNombre().toUpperCase(), (System.currentTimeMillis() - initialTime) / 1000.0);
     }
 }
